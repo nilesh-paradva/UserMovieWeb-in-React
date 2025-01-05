@@ -85,7 +85,7 @@ const PricingPlans = () => {
                             </div>
                         </Col>
                         <Col lg={12}>
-                            <div className="table-price py-16 overflow-x-scroll">
+                            <div className="table-price py-16 overflow-x-scroll scroll">
                                 <table className="w-[1250px]">
                                     <thead>
                                         <tr>

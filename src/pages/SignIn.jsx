@@ -42,7 +42,7 @@ const SignIn = () => {
     
     return (
         <>
-            <section className="flex justify-center h-screen items-center bg-[url('assets/images/authimage/bg.jpg')] bg-cover rounded-lg overflow-y-scroll">
+            <section className="flex justify-center h-screen items-center bg-[url('assets/images/authimage/bg.jpg')] bg-cover ">
                 <Container>
                     <Row className="justify-content-center">
                         <Col lg={5}>

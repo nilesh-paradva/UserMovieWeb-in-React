@@ -75,7 +75,7 @@ const Sidebar = () => {
                                     <Link to="/live"  className="block px-4 py-2 text-[16px] text-white hover:bg-[#1d2a3f]  no-underline"><LiveTvIcon className="text-[#2764b7] mr-2" />&nbsp;Live</Link>
                                 </MenuItem>
                                 <MenuItem>
-                                    <Link to="/faviourtemovie"  className="block px-4 py-2 text-[16px] text-white hover:bg-[#1d2a3f] rounded-b-lg no-underline"><FavoriteIcon className="text-[#2764b7] mr-2" />&nbsp;Faviourte&nbsp;Movie</Link>
+                                    <Link to="/faviourtemovie"  className="block px-4 py-2 text-[16px] text-white hover:bg-[#1d2a3f] no-underline"><FavoriteIcon className="text-[#2764b7] mr-2" />&nbsp;Faviourte&nbsp;Movie</Link>
                                 </MenuItem>
                                 <MenuItem>
                                     <Link to="/profile"  className="block px-4 py-2 text-[16px] text-white hover:bg-[#1d2a3f] no-underline"><ContactsIcon className="text-[#2764b7] mr-2" />&nbsp;Profile</Link>

@@ -2,7 +2,10 @@ import { Button } from "@mui/material"
 import { Col, Container, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
-import { ChevronDownIcon } from '@heroicons/react/20/solid'
+import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { SideBarAct } from "../../services/actions/MovieUserAct";
+import { AdminLogOutThink } from "../../services/actions/AuthAction";
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
 import AdjustIcon from '@mui/icons-material/Adjust';
@@ -14,10 +17,7 @@ import VerifiedUserIcon from '@mui/icons-material/VerifiedUser';
 import ContactsIcon from '@mui/icons-material/Contacts';
 import TextureIcon from '@mui/icons-material/Texture';
 import CloseIcon from '@mui/icons-material/Close';
-import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { SideBarAct } from "../../services/actions/MovieUserAct";
-import { AdminLogOutThink } from "../../services/actions/AuthAction";
+import FavoriteIcon from '@mui/icons-material/Favorite';
 
 const Header = () => {
 
@@ -69,6 +69,9 @@ const Header = () => {
                                                     <Link href="#" className="flex items-center px-4 py-2 text-white hover:bg-[#19202c] no-underline">
                                                         <AccountCircleIcon className="text-[#2764b7] mr-2" />&nbsp;Profile
                                                     </Link>
+                                                </MenuItem>
+                                                <MenuItem>
+                                                    <Link to="/faviourtemovie" className="block px-4 py-2 text-[16px] text-white hover:bg-[#1d2a3f] no-underline"><FavoriteIcon className="text-[#2764b7] mr-2" />&nbsp;Faviourte&nbsp;Movie</Link>
                                                 </MenuItem>
                                                 <MenuItem>
                                                     <Link href="#" className="flex items-center px-4 py-2 text-white hover:bg-[#19202c] no-underline">
