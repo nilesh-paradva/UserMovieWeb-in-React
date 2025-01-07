@@ -8,11 +8,12 @@ import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet';
 import PaymentsIcon from '@mui/icons-material/Payments';
 import PaymentIcon from '@mui/icons-material/Payment';
 import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
-import { HomeNavigateThunk } from "../services/actions/AuthAction";
+import { HomeNavigateThunk, loginAdminThunk } from "../services/actions/AuthAction";
 import Footer from "../components/footer/Footer";
 import CloseIcon from '@mui/icons-material/Close';
 import DoneIcon from '@mui/icons-material/Done';
 import { Button } from "@mui/material";
+import { SideBarAct } from "../services/actions/MovieUserAct";
 
 const PricingPlans = () => {
 
@@ -23,6 +24,10 @@ const PricingPlans = () => {
     useEffect(() => {
         dispatch(HomeNavigateThunk())
     }, [])
+
+    useEffect(() => {
+        dispatch(loginAdminThunk());
+    }, []);
 
     useEffect(() => {
         if (!user) {
