@@ -40,6 +40,20 @@ const LoadingAct = () => {
     };
 }
 
+export const ErrorAct = (data) => {
+    return {
+        type: "ERROR",
+        payload: data
+    };
+}
+
+export const isOpenAct = (data) => {
+    return {
+        type: "ISOPEN",
+        payload: data,
+    };
+};
+
 
 //Thunk
 
@@ -56,7 +70,14 @@ export const SignUpThunk = (data) => async dispatch => {
         await addDoc(collection(db, "users"), userData);
         dispatch(SignUpAct());
     } catch (error) {
-        console.log(error);
+        let errorMessage = "An error occurred. Please try again.";
+        if (error.code === "auth/email-already-in-use") {
+            errorMessage = "The email address is already in use by another account.";
+        } else if (error.code === "auth/weak-password") {
+            errorMessage = "The password should be at least 6 characters.";
+        }
+        dispatch(ErrorAct(errorMessage));
+        dispatch(isOpenAct(true));
     }
 }
 
@@ -66,16 +87,23 @@ export const SignInThunk = (data) => async dispatch => {
         dispatch(LoadingAct());
         const res = await signInWithEmailAndPassword(auth, data.email, data.password);
         localStorage.setItem('uid', JSON.stringify(res.user.uid));
+        
         const userdata = {
             displayName: res.user.displayName,
             uid: res.user.uid,
             email: res.user.email
         }
+        console.log("userdata", userdata);
         dispatch(SignInAct(userdata));
-        console.log("signIn", userdata);
-    } catch (err) {
-        console.log("Error code", err.code);
-        console.log("Error message", err.message);
+    } catch (error) {
+        let errorMessage = "An error occurred. Please try again.";
+        if (error.code === "auth/invalid-credential") {
+            errorMessage = "No user found with this email.";
+        } else if (error.code === "auth/wrong-password") {
+            errorMessage = "Incorrect password. Please try again.";
+        }
+        dispatch(ErrorAct(errorMessage));
+        dispatch(isOpenAct(true));
     }
 }
 
@@ -128,7 +156,6 @@ export const HomeNavigateThunk = () => async dispatch => {
         const userget = res.docs.find(doc => doc.data().uid === uid);
         if (userget) {
             const userData = userget.data();
-            console.log("validation", userData);
             dispatch(SignInAct(userData));
         }
     } catch (err) {

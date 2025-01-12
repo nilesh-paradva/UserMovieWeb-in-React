@@ -36,15 +36,15 @@ const Sidebar = () => {
             {/* User Info Section */}
             <div className="account py-4 px-3 border-b-2 border-[#1b273b] border-sidebar-border flex items-center justify-between">
                 <div className="flex items-center relative">
-                    {user && user[0] ? (
+                    {user ? (
                         <>
                             <Avatar variant="rounded" sx={{ width: 45, height: 45 }}>
-                                <img src={user[0].photoURL || userImage} alt="User" />
+                                <img src={user.photoURL || userImage} alt="User" />
                             </Avatar>
                             <div className="ml-3">
                                 <ul className="m-0 p-0 list-none">
-                                    <li className="!text-white text-lg">{user[0].displayName || 'No name available'}</li>
-                                    <li className="!text-white text-sm">{user[0].email || 'No email available'}</li>
+                                    <li className="!text-white text-lg">{user.displayName || 'No name available'}</li>
+                                    <li className="!text-white text-sm">{user.email || 'No email available'}</li>
                                 </ul>
                             </div>
                         </>

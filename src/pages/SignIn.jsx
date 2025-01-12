@@ -1,15 +1,15 @@
-import { Button } from "@mui/material";
+import { Alert, Button, Snackbar } from "@mui/material";
 import { useEffect, useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { SignInPoPup, SignInThunk, SignUpBackAct } from "../services/actions/AuthAction";
+import { isOpenAct, SignInPoPup, SignInThunk, SignUpBackAct } from "../services/actions/AuthAction";
 
 const SignIn = () => {
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const { isSignIn, isLoading } = useSelector(state => state.AuthReducer);
+    const { isSignIn, isLoading, Error, isOpen } = useSelector(state => state.AuthReducer);
     const [signIn, setsignIn] = useState({
         email: "",
         password: "",
@@ -42,6 +42,11 @@ const SignIn = () => {
     
     return (
         <>
+            <Snackbar open={isOpen} autoHideDuration={6000} onClose={() => dispatch(isOpenAct(false))} anchorOrigin={{ vertical: 'top', horizontal: 'center' }}>
+                <Alert onClose={() => dispatch(isOpenAct(false))} severity="error">
+                    {Error}
+                </Alert>
+            </Snackbar>
             <section className="flex justify-center h-screen items-center bg-[url('assets/images/authimage/bg.jpg')] bg-cover ">
                 <Container>
                     <Row className="justify-content-center">

@@ -11,19 +11,16 @@ const initialState = {
 export const MovieReducer = (state = initialState, action) => {
     switch (action.type) {
         case "ADD_FAVORITE":
-            return { ...state, isCreated: true, isLoading: false }
+            return { ...state, isCreated: true, isLoading: false}
 
         case "GETMOVIE":
             return { ...state, movies: action.payload, isLoading: false, isCreated: false}
 
         case "FAVOURITEMOVIE":
-            return { ...state, favoriteMovies: action.payload, isLoading: false, isCreated: false }
+            return { ...state, favoriteMovies :  action.payload, isLoading: false, isCreated: false }
 
         case "SINGLEITEM" :
             return {...state, movie : action.payload, isLoading: false, isCreated: false}
-
-        case "UPDATEITEM" :
-            return {...state, movie : action.payload, isCreated: true, loading: false}
 
         case "SIDEBAR_TOOGLE":
             return { ...state, sidebarToogle: !state.sidebarToogle }

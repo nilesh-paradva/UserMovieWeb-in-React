@@ -4,11 +4,12 @@ import { useDispatch, useSelector } from "react-redux";
 // import { useDispatch } from "react-redux";
 // import { SignUpThunk } from "../services/actions/AuthAction";
 import { Link, useNavigate } from "react-router-dom";
-import { SignUpThunk } from "../services/actions/AuthAction";
+import { ErrorAct, isOpenAct, SignUpThunk } from "../services/actions/AuthAction";
+import { Alert, Snackbar } from "@mui/material";
 
 const SignUp = () => {
 
-    const { isLoading, isCreated } = useSelector(state => state.AuthReducer);
+    const { isLoading, isCreated, Error, isOpen } = useSelector(state => state.AuthReducer);
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const [signUp, setsignUp] = useState({
@@ -23,9 +24,13 @@ const SignUp = () => {
     }
 
     const handleSubmit = (e) => {
-        e.preventDefault()
+        e.preventDefault();
+        if (signUp.password !== signUp.confirmPassword) {
+            dispatch(ErrorAct("Password and Confirm Password should be the same."));
+            dispatch(isOpenAct(true));
+            return;
+        }
         dispatch(SignUpThunk(signUp))
-        console.log("signUp", signUp);
     }
 
     useEffect(() => {
@@ -36,6 +41,11 @@ const SignUp = () => {
 
     return (
         <>
+            <Snackbar open={isOpen} autoHideDuration={6000} onClose={() => dispatch(isOpenAct(false))} anchorOrigin={{ vertical: 'top', horizontal: 'center' }}>
+                <Alert onClose={() => dispatch(isOpenAct(false))} severity="error">
+                    {Error}
+                </Alert>
+            </Snackbar>
             <section className="flex justify-center h-screen items-center bg-[url('assets/images/authimage/bg.jpg')] bg-cover">
                 <Container>
                     <Row className="justify-content-center">
