@@ -71,10 +71,19 @@ export const SignUpThunk = (data) => async dispatch => {
         dispatch(SignUpAct());
     } catch (error) {
         let errorMessage = "An error occurred. Please try again.";
+
         if (error.code === "auth/email-already-in-use") {
             errorMessage = "The email address is already in use by another account.";
-        } else if (error.code === "auth/weak-password") {
+        } else if (error.code === "auth/invalid-email") {
+            errorMessage = "Please enter a valid email address.";
+        }else if (error.code === "auth/weak-password") {
             errorMessage = "The password should be at least 6 characters.";
+        } else if (error.code === "auth/missing-email") {
+            errorMessage = "Please enter your email.";
+        } else if (error.code === "auth/missing-password") {
+            errorMessage = "Please enter your password.";
+        } else if (error.code) {
+            errorMessage = `Error: ${error.message}`;
         }
         dispatch(ErrorAct(errorMessage));
         dispatch(isOpenAct(true));
@@ -97,11 +106,17 @@ export const SignInThunk = (data) => async dispatch => {
         dispatch(SignInAct(userdata));
     } catch (error) {
         let errorMessage = "An error occurred. Please try again.";
+
         if (error.code === "auth/invalid-credential") {
             errorMessage = "No user found with this email.";
-        } else if (error.code === "auth/wrong-password") {
-            errorMessage = "Incorrect password. Please try again.";
+        } else if (error.code === "auth/invalid-email") {
+            errorMessage = "Please enter your email.";
+        } else if (error.code === "auth/missing-password") {
+            errorMessage = "Please enter your password.";
+        } else {
+            errorMessage = `Error: ${error.message}`;
         }
+        
         dispatch(ErrorAct(errorMessage));
         dispatch(isOpenAct(true));
     }
