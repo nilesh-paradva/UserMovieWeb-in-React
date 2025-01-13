@@ -34,24 +34,39 @@ export const LoadingAct = () => {
     }
 }
 
+export const ErrorAct = (data) => {
+    return {
+        type: "ERROR",
+        payload: data
+    };
+}
+
+export const isOpenAct = (data) => {
+    return {
+        type: "ISOPEN",
+        payload: data,
+    };
+};
 
 
 // Thunk 
 
-
 // Add favorite Movie
 export const AddFavoriteThunk = (data) => async (dispatch) => {
+
+    dispatch(LoadingAct());
+
     const uid = JSON.parse(localStorage.getItem("uid"));
     data.userid = uid;
 
     try {
         const res = await getDocs(collection(db, "favorite_movies"));
-        // const isFavorite = res.docs.some(doc => {
-        //     const movie = doc.data();
-        //     return movie.id === data.id;
-        // });
+        const isFavorite = res.docs.some(doc => {
+            const movie = doc.data();
+            return movie.userid === uid && movie.id === data.id;
+        });
 
-        // if (isFavorite) return alert("This movie is already in your favorites!");
+        if (isFavorite) return dispatch(ErrorAct("This movie is already in your favorites.")), dispatch(isOpenAct(true));
 
         await addDoc(collection(db, "favorite_movies"), data);
         dispatch(AddFavoriteAct());
@@ -74,14 +89,20 @@ export const getMoviesThunk = () => async dispatch => {
 
 // get Favorite Movie
 export const getFavoriteMovies = () => async dispatch => {
+
+    dispatch(LoadingAct());
+
     try {
         const favoritemovies = (await getDocs(collection(db, "favorite_movies"))).docs.map((doc) => ({ ...doc.data(), id: doc.id }));
 
         const uidGet = JSON.parse(localStorage.getItem("uid"));
         const filterRec = favoritemovies.filter(rec => rec.userid === uidGet);
         console.log("filterRec", filterRec);
-        
-        dispatch(getFaviourteMoviesAct(filterRec));
+
+        setTimeout(() => {
+            dispatch(getFaviourteMoviesAct(filterRec));
+        }, 2000);
+
         console.log(filterRec.length > 0 ? "Movies dispatche" : "No matching movies.");
 
     } catch (err) {
