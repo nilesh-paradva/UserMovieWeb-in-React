@@ -43,7 +43,7 @@ const Sidebar = () => {
                             </Avatar>
                             <div className="ml-3">
                                 <ul className="m-0 p-0 list-none">
-                                    <li className="!text-white text-lg">{user.displayName || 'No name available'}</li>
+                                    <li className="!text-white text-lg">{user.displayName ||  'No name available'}</li>
                                     <li className="!text-white text-sm">{user.email || 'No email available'}</li>
                                 </ul>
                             </div>
